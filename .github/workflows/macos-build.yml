@@ -23,6 +23,10 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
 
+      - name: Install PyInstaller globally
+        run: |
+          pip install pyinstaller
+
       - name: Build the macOS app
         run: |
           source venv/bin/activate
@@ -33,3 +37,4 @@ jobs:
         with:
           name: DeepLiveCam.app
           path: dist/DeepLiveCam.app
+
