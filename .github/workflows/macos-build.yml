@@ -24,17 +24,34 @@ jobs:
           pip install -r requirements.txt
 
       - name: Install PyInstaller globally
-        run: |
-          pip install pyinstaller
+        run: pip install pyinstaller
 
       - name: Build the macOS app
         run: |
           source venv/bin/activate
           pyinstaller --noconfirm --onefile --windowed --name "DeepLiveCam" run.py
 
-      - name: Upload build artifact
+      - name: Install create-dmg (for DMG packaging)
+        run: brew install create-dmg
+
+      - name: Package the .app into a DMG
+        run: |
+          mkdir dist/DeepLiveCam
+          cp -R dist/DeepLiveCam.app dist/DeepLiveCam
+          create-dmg \
+            --volname "DeepLiveCam Installer" \
+            --window-pos 200 120 \
+            --window-size 800 400 \
+            --icon-size 100 \
+            --icon "DeepLiveCam.app" 200 190 \
+            --hide-extension "DeepLiveCam.app" \
+            --app-drop-link 600 185 \
+            dist/DeepLiveCam.dmg \
+            dist/DeepLiveCam
+
+      - name: Upload the DMG artifact
         uses: actions/upload-artifact@v3
         with:
-          name: DeepLiveCam.app
-          path: dist/DeepLiveCam.app
+          name: DeepLiveCam.dmg
+          path: dist/DeepLiveCam.dmg
 
