@@ -30,7 +30,7 @@ jobs:
       - name: Build the macOS app
         run: |
           source venv/bin/activate
-          pyinstaller --noconfirm --onefile --windowed --name "DeepLiveCam" app.py
+          pyinstaller --noconfirm --onefile --windowed --name "DeepLiveCam" run.py
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
