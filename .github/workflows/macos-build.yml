@@ -36,9 +36,8 @@ jobs:
 
       - name: Package the .app into a DMG
         run: |
-          if [ ! -d "dist/DeepLiveCam" ]; then
-            mkdir dist/DeepLiveCam
-          fi
+          rm -rf dist/DeepLiveCam  # Remove the directory if it exists
+          mkdir dist/DeepLiveCam
           cp -R dist/DeepLiveCam.app dist/DeepLiveCam
           create-dmg \
             --volname "DeepLiveCam Installer" \
