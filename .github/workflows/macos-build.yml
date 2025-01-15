@@ -39,6 +39,7 @@ jobs:
           mkdir -p dist/DeepLiveCam.app/Contents/MacOS/assets
           cp -R models dist/DeepLiveCam.app/Contents/MacOS/assets
           cp -R ffmpeg dist/DeepLiveCam.app/Contents/MacOS/assets
+          mv dist/DeepLiveCam dist/DeepLiveCam.app
 
       - name: Ensure DeepLiveCam.app is in the correct directory
         run: |
