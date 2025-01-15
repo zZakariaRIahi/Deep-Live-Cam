@@ -30,15 +30,15 @@ jobs:
         run: |
           source venv/bin/activate
           pyinstaller --noconfirm --onefile --windowed --name "DeepLiveCam" run.py
+          mkdir -p dist/DeepLiveCam.app/Contents/MacOS/assets
+          cp -R models dist/DeepLiveCam.app/Contents/MacOS/assets
+          cp -R ffmpeg dist/DeepLiveCam.app/Contents/MacOS/assets
 
       - name: Install create-dmg (for DMG packaging)
         run: brew install create-dmg
 
-      - name: Package the .app into a DMG
+      - name: Package the app into a DMG
         run: |
-          rm -rf dist/DeepLiveCam  # Remove the directory if it exists
-          mkdir dist/DeepLiveCam
-          cp -R dist/DeepLiveCam.app dist/DeepLiveCam
           create-dmg \
             --volname "DeepLiveCam Installer" \
             --window-pos 200 120 \
@@ -55,6 +55,7 @@ jobs:
         with:
           name: DeepLiveCam.dmg
           path: dist/DeepLiveCam.dmg
+
 
 
 
