@@ -42,10 +42,8 @@ jobs:
 
       - name: Ensure DeepLiveCam.app is in the correct directory
         run: |
-          if [ ! -d "dist/DeepLiveCam" ]; then
-            mkdir -p dist/DeepLiveCam
-          fi
-          mv dist/DeepLiveCam.app dist/DeepLiveCam/
+          mkdir -p dist/DeepLiveCam || true
+          mv dist/DeepLiveCam.app dist/DeepLiveCam/ || true
 
       - name: Install create-dmg (for DMG packaging)
         run: brew install create-dmg
