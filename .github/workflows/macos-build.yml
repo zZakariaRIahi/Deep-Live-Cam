@@ -36,15 +36,12 @@ jobs:
         run: |
           source venv/bin/activate
           pyinstaller --noconfirm --onefile --windowed --name "DeepLiveCam" run.py
+
+      - name: Copy assets into the app package
+        run: |
           mkdir -p dist/DeepLiveCam.app/Contents/MacOS/assets
           cp -R models dist/DeepLiveCam.app/Contents/MacOS/assets
           cp -R ffmpeg dist/DeepLiveCam.app/Contents/MacOS/assets
-          mv dist/DeepLiveCam dist/DeepLiveCam.app
-
-      - name: Ensure DeepLiveCam.app is in the correct directory
-        run: |
-          mkdir -p dist/DeepLiveCam || true
-          mv dist/DeepLiveCam.app dist/DeepLiveCam/ || true
 
       - name: Install create-dmg (for DMG packaging)
         run: brew install create-dmg
@@ -62,13 +59,14 @@ jobs:
             --hide-extension "DeepLiveCam.app" \
             --app-drop-link 600 185 \
             dist/DeepLiveCam.dmg \
-            dist/DeepLiveCam
+            dist/dmg
 
       - name: Upload the DMG artifact
         uses: actions/upload-artifact@v3
         with:
           name: DeepLiveCam.dmg
-          path: dist/DeepLiveCam.dmg
+          path: dist/dmg/DeepLiveCam.dmg
+
 
 
 
