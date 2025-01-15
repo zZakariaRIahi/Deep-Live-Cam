@@ -2,6 +2,7 @@
 
 import os
 import sys
+import requests
 from modules import core
 
 # Define paths to local models
@@ -20,9 +21,23 @@ if not os.path.exists(gfpgan_model_path):
 
 # FFmpeg path
 ffmpeg_path = os.path.join(os.path.dirname(sys.argv[0]), "ffmpeg", "ffmpeg")
+
+# If FFmpeg doesn't exist, download it
 if not os.path.exists(ffmpeg_path):
-    print(f"Error: FFmpeg not found at {ffmpeg_path}")
-    exit()
+    print("FFmpeg not found locally. Downloading from Google Drive...")
+    try:
+        ffmpeg_url = "https://drive.google.com/uc?export=download&id=1byJEivvxlWrotJ6jPKTFpTxHreKKk4MK"
+        response = requests.get(ffmpeg_url, stream=True)
+        response.raise_for_status()
+        os.makedirs(os.path.dirname(ffmpeg_path), exist_ok=True)
+        with open(ffmpeg_path, "wb") as ffmpeg_file:
+            for chunk in response.iter_content(chunk_size=8192):
+                ffmpeg_file.write(chunk)
+        os.chmod(ffmpeg_path, 0o755)  # Make it executable
+        print("FFmpeg downloaded successfully.")
+    except Exception as e:
+        print(f"Error downloading FFmpeg: {e}")
+        exit()
 
 # Use the local FFmpeg path in your code
 os.environ["PATH"] += os.pathsep + os.path.dirname(ffmpeg_path)
