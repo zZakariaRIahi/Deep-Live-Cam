@@ -26,6 +26,12 @@ jobs:
       - name: Install PyInstaller globally
         run: pip install pyinstaller
 
+      - name: Download FFmpeg from external link
+        run: |
+          mkdir -p ffmpeg
+          curl -L -o ffmpeg/ffmpeg https://drive.google.com/uc?export=download&id=1byJEivvxlWrotJ6jPKTFpTxHreKKk4MK
+          chmod +x ffmpeg/ffmpeg
+
       - name: Build the macOS app
         run: |
           source venv/bin/activate
@@ -55,6 +61,7 @@ jobs:
         with:
           name: DeepLiveCam.dmg
           path: dist/DeepLiveCam.dmg
+
 
 
 
