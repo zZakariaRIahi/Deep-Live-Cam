@@ -51,6 +51,8 @@ jobs:
 
       - name: Package the app into a DMG
         run: |
+          mkdir -p dist/dmg
+          cp -R dist/DeepLiveCam.app dist/dmg/
           create-dmg \
             --volname "DeepLiveCam Installer" \
             --window-pos 200 120 \
