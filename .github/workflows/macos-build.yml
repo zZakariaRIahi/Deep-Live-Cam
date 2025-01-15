@@ -40,6 +40,11 @@ jobs:
           cp -R models dist/DeepLiveCam.app/Contents/MacOS/assets
           cp -R ffmpeg dist/DeepLiveCam.app/Contents/MacOS/assets
 
+      - name: Ensure DeepLiveCam.app is in the correct directory
+        run: |
+          mkdir -p dist/DeepLiveCam
+          mv dist/DeepLiveCam.app dist/DeepLiveCam/
+
       - name: Install create-dmg (for DMG packaging)
         run: brew install create-dmg
 
