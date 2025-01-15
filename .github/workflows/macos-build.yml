@@ -52,12 +52,12 @@ jobs:
           cp -R dist/DeepLiveCam.app dist/dmg/
           create-dmg \
             --volname "DeepLiveCam Installer" \
-            --window-pos 200 120 \
-            --window-size 800 400 \
-            --icon-size 100 \
-            --icon "DeepLiveCam.app" 200 190 \
+            --window-pos 100 100 \
+            --window-size 600 400 \
+            --icon-size 80 \
+            --icon "DeepLiveCam.app" 150 150 \
             --hide-extension "DeepLiveCam.app" \
-            --app-drop-link 600 185 \
+            --app-drop-link 450 150 \
             dist/DeepLiveCam.dmg \
             dist/dmg
 
